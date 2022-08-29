@@ -16,11 +16,11 @@ onBeforeMount(() => {
     <main>
       <div class="result-container">
         <div class="result-info">
-          <h1>Correct answers: {{ store.sum }} / {{ store.answers.length }}</h1>
+          <h1>Correct answers: {{ store.sum }} / {{ store.questionAmount }}</h1>
           <p>Time: {{ store.time.minutes }}min {{ store.time.seconds }}sec</p>
         </div>
         <div class="result-chart" v-if="done, store.answers.length!=0">
-          <PieChart :correct="store.sum" :incorrect="store.sum==0?store.answers.length:store.answers.length-store.sum"/>
+          <PieChart :correct="store.sum" :incorrect="store.questionAmount-store.sum"/>
           <p class="chart-description">Graph of the ratio of correct to incorrect answers</p>
         </div>
         <div class="result-button">

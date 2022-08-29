@@ -16,11 +16,16 @@ const startQuiz = ref(false)
 const index = ref(0)
 const router = useRouter()
 const store = useQuizStore()
-const stopWatch = useStopwatch(<number><unknown>true)
+const stopWatch = ref(0)
 
 onMounted(() => {
   store.resetStore()
 })
+
+const beginQuiz = () => {
+  startQuiz.value = true
+  stopWatch.value = useStopwatch(<number><unknown>true)
+}
 
 const nextQuestion = () => {
   if (index.value != store.questionAmount-1) index.value++
@@ -74,9 +79,9 @@ const endQuiz = () => {
             />
           </div>
           <div class="question-navigation">
-            <button @click="previousQuestion" class="btn-main prev">Previous</button>
+            <button v-if="index!=0" @click="previousQuestion" class="btn-main prev">Previous</button>
             <button @click="endQuiz" class="btn-main end">End quiz</button>
-            <button @click="nextQuestion" class="btn-main next">Next</button>
+            <button v-if="index!=9" @click="nextQuestion" class="btn-main next">Next</button>
           </div>
         </div>
       </div>
@@ -85,7 +90,7 @@ const endQuiz = () => {
           <p>When you click the button below, the timer will start to count down.</p>  
           <p>Good luck!</p>
         </div>
-        <button @click="startQuiz = true" class="btn-main">Start</button>
+        <button @click="beginQuiz" class="btn-main">Start</button>
       </div>
     </div>
   </section>
@@ -139,7 +144,6 @@ const endQuiz = () => {
     
     .question-navigation {
       display: flex;
-      // flex-direction: row;
       justify-content: space-between;
       flex-wrap: wrap;
     }
@@ -159,7 +163,6 @@ const endQuiz = () => {
   padding: 0px 0px 20px; 
   .progress, .description, .timer {
     width: 140px; 
-    //85
   }
 }
 
