@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { defineStore } from "pinia"
 
 export const useQuizStore = defineStore({
   id: "quiz",
@@ -12,7 +12,7 @@ export const useQuizStore = defineStore({
     addAnswer(i: number, a: string, c: boolean) {
       this.answers[i] = {id: i, answer: a, isCorrect: c}
     },
-    addTime(m: number, s: number) {
+    setTime(m: number, s: number) {
       this.time.minutes = m
       this.time.seconds = s
     },
@@ -29,4 +29,4 @@ export const useQuizStore = defineStore({
       }
     }
   },
-});
+})

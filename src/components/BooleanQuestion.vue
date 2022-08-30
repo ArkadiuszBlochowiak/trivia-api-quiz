@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import type { Questions } from '@/types/interfaces';
-import { useQuizStore } from '@/stores/quiz';
+import type { Questions } from '@/types/interfaces'
+import { useQuizStore } from '@/stores/quiz'
 
 const props = defineProps<{
-  data: Questions;
+  data: Questions
   id: number
-}>();
+}>()
 
 const emit = defineEmits(['passAnswer'])
 
@@ -28,6 +28,7 @@ const index = computed(() => {
   return props.id
 })
 
+//one way to get rid of '&quot;' etc.
 const question = computed(() => {
   const div = document.createElement('div');
   div.innerHTML = props.data.question

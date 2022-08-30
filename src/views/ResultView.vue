@@ -1,14 +1,23 @@
 <script setup lang="ts">
-import { ref, onBeforeMount} from 'vue';
-import { useQuizStore } from '@/stores/quiz';
+import { ref, onBeforeMount} from 'vue'
+import { useQuizStore } from '@/stores/quiz'
 import PieChart from '@/components/ResultChart.vue'
+import { computed } from '@vue/reactivity'
 
-const store = useQuizStore();
+const store = useQuizStore()
 const done = ref(false)
 
 onBeforeMount(() => {
   store.sumCorrect()
   done.value = true
+})
+
+const correctAnswers = computed(() => {
+  return store.sum
+})
+
+const incorrectAnswers = computed(() => {
+  return store.questionAmount-store.sum
 })
 </script>
 
@@ -20,7 +29,7 @@ onBeforeMount(() => {
           <p>Time: {{ store.time.minutes }}min {{ store.time.seconds }}sec</p>
         </div>
         <div class="result-chart" v-if="done, store.answers.length!=0">
-          <PieChart :correct="store.sum" :incorrect="store.questionAmount-store.sum"/>
+          <PieChart :correct="correctAnswers" :incorrect="incorrectAnswers"/>
           <p class="chart-description">Graph of the ratio of correct to incorrect answers</p>
         </div>
         <div class="result-button">

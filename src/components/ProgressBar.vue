@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RadialProgressBar from "vue3-radial-progress";
+import RadialProgressBar from "vue3-radial-progress"
 
 defineProps<{
   completed: number

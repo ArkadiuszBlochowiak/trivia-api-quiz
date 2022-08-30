@@ -1,9 +1,9 @@
 <template>
   <section class="header">
     <div class="content">
-      <a href="/">
+      <router-link to="/">
         <img src="@/assets/logo.png" alt="Trivia API Quiz" class="logo"/>
-      </a>
+      </router-link>
     </div>
   </section>
 </template>

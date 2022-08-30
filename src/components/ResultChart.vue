@@ -8,14 +8,14 @@ import {
   ArcElement,
   CategoryScale
 } from 'chart.js'
-import { h } from 'vue';
+import { h } from 'vue'
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 
 const props = defineProps<{
   correct: number
   incorrect: number
-}>();
+}>()
 
 const chartData = {
   labels: ['correct', 'incorrect'],

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch } from "vue"
 import type { Questions } from '@/types/interfaces'
-import { useQuizStore } from "@/stores/quiz";
+import { useQuizStore } from "@/stores/quiz"
 
 const props = defineProps<{
   data: Questions
   id: number
-}>();
+}>()
 
 const emit = defineEmits(['passAnswer'])
 
@@ -24,8 +24,9 @@ const getPreviousAnswer = computed(() => {
   }
 })
 
+//one way to get rid of '&quot;' etc.
 const answers = computed(() => {
-  const div = document.createElement('div');
+  const div = document.createElement('div')
   div.innerHTML = props.data.incorrect_answers
   const incorrect_text: string = div.textContent!
   const array = incorrect_text.split(',')
@@ -46,7 +47,7 @@ const answers = computed(() => {
     return props.data.incorrect_answers.concat(props.data.correct_answer)
   
   return result
-});
+})
 
 const shuffleAnswers = (answers: string[]) => {
   const len = answers.length
@@ -65,8 +66,9 @@ const index = computed(() => {
   return props.id
 })
 
+//one way to get rid of '&quot;' etc.
 const question = computed(() => {
-  const div = document.createElement('div');
+  const div = document.createElement('div')
   div.innerHTML = props.data.question
   return div.textContent
 })

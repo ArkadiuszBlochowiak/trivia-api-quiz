@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Quiz from '@/components/Quiz.vue';
+import Quiz from '@/components/Quiz.vue'
 import { ref, watchEffect } from 'vue'
 
 const data = ref()

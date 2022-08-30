@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
-import type { Questions } from "@/types/interfaces";
+import type { Questions } from "@/types/interfaces"
 import MultipleQuestion from "./MultipleQuestion.vue"
 import BooleanQuestion from "./BooleanQuestion.vue"
-import { useRouter } from "vue-router";
+import { useRouter } from "vue-router"
 import { useQuizStore } from '@/stores/quiz'
 import { useStopwatch } from 'vue-timer-hook'
 import ProgressBar from "./ProgressBar.vue"
@@ -16,7 +16,7 @@ const startQuiz = ref(false)
 const index = ref(0)
 const router = useRouter()
 const store = useQuizStore()
-const stopWatch = ref(0)
+const stopWatch = useStopwatch()
 
 onMounted(() => {
   store.resetStore()
@@ -24,7 +24,8 @@ onMounted(() => {
 
 const beginQuiz = () => {
   startQuiz.value = true
-  stopWatch.value = useStopwatch(<number><unknown>true)
+  stopWatch.reset()
+  stopWatch.start()
 }
 
 const nextQuestion = () => {
@@ -36,14 +37,12 @@ const previousQuestion = () => {
 };
 
 const saveAnswer = (response: any) => {
-  let check = false
-  if(response.value === props.data[response.id].correct_answer) check=true
-  store.addAnswer(response.id, response.value, check)
+  response.value === props.data[response.id].correct_answer ? store.addAnswer(response.id, response.value, true) : store.addAnswer(response.id, response.value, false)
 }
 
 const endQuiz = () => {
   stopWatch.pause()
-  store.addTime(stopWatch.minutes.value, stopWatch.seconds.value)
+  store.setTime(stopWatch.minutes.value, stopWatch.seconds.value)
   router.push('result')
 }
 </script>
